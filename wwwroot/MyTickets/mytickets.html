@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vé của tôi - FoxCinema</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="mytickets.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">FoxCinema</div>
+        <div class="nav">
+            <a href="../home.html">Trang chủ</a>
+            <a href="mytickets.html" class="active">Vé của tôi</a>
+            <button class="logout-btn">Đăng xuất</button>
+        </div>
+    </header>
+
+    <main class="tickets-container">
+        <h1 class="page-title">VÉ CỦA TÔI</h1>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="current">VÉ HIỆN TẠI</button>
+            <button class="tab-btn" data-tab="history">LỊCH SỬ</button>
+        </div>
+
+        <!-- Ticket Grid -->
+        <div id="tickets-grid" class="tickets-grid">
+            <!-- Tickets will be dynamically loaded here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state" style="display: none;">
+            <p>Bạn chưa có vé nào.</p>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="loading-state">
+            <p>Đang tải vé...</p>
+        </div>
+    </main>
+
+    <!-- Ticket Detail Modal -->
+    <div id="ticket-detail-modal" class="modal" style="display: none;">
+        <div class="modal-content ticket-detail-view">
+            <button class="modal-close" onclick="closeTicketDetail()">&times;</button>
+            
+            <div class="detail-header">
+                <h2 id="detail-movie-title">-</h2>
+                <span id="detail-status-badge" class="detail-status-badge">-</span>
+            </div>
+
+            <div class="detail-body">
+                <div class="detail-section">
+                    <h3>Thông tin chiếu phim</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Ngày chiếu:</span>
+                        <span id="detail-show-date" class="detail-value">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Suất chiếu:</span>
+                        <span id="detail-show-time" class="detail-value">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Rạp chiếu:</span>
+                        <span id="detail-cinema-name" class="detail-value">-</span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Số vé</h3>
+                    <div class="detail-seats">
+                        <div id="detail-seats-list">-</div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Mã vé QR</h3>
+                    <div id="detail-qr-code" class="detail-qr-container">
+                        <!-- QR code will be generated here -->
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Tổng giá tiền</h3>
+                    <div id="detail-total-price" class="detail-total-price">-</div>
+                </div>
+
+                <div class="detail-notes">
+                    <p>📌 <strong>Ghi chú:</strong> Vui lòng lưu giữ mã QR này để sử dụng tại cửa hàng</p>
+                </div>
+            </div>
+
+            <div class="detail-actions">
+                <button class="btn-secondary" onclick="closeTicketDetail()">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- html2canvas for ticket capture -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <script src="mytickets.js"></script>
+</body>
+</html>

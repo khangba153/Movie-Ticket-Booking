@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoxCinema - Đăng nhập</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="Auth/auth.css">
+</head>
+<body>
+
+<div class="auth-container" id="authContainer">
+    <!-- ===== FORM LAYER ===== -->
+    <div class="forms-wrap">
+        <!-- LOGIN FORM -->
+        <form class="form login-form" id="loginForm" autocomplete="off">
+            <h2 class="form-title">Đăng nhập</h2>
+
+            <div class="input-group">
+                <label for="loginUsername">Tên người dùng</label>
+                <input type="text" id="loginUsername" name="username" required>
+            </div>
+
+            <div class="input-group">
+                <label for="loginPassword">Mật khẩu</label>
+                <input type="password" id="loginPassword" name="password" required>
+            </div>
+
+            <div class="message" id="loginMessage"></div>
+
+            <button type="submit" class="submit-btn" id="loginBtn">Đăng nhập</button>
+        </form>
+
+        <!-- REGISTER FORM -->
+        <form class="form register-form" id="registerForm" autocomplete="off">
+            <h2 class="form-title">Đăng ký</h2>
+
+            <div class="input-group">
+                <label for="regUsername">Tên người dùng</label>
+                <input type="text" id="regUsername" name="username" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regPassword">Mật khẩu</label>
+                <input type="password" id="regPassword" name="password" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regConfirm">Nhập lại mật khẩu</label>
+                <input type="password" id="regConfirm" name="confirmPassword" required>
+            </div>
+
+            <div class="message" id="registerMessage"></div>
+
+            <button type="submit" class="submit-btn" id="registerBtn">Đăng ký</button>
+        </form>
+    </div>
+
+    <!-- ===== SIDE PANELS ===== -->
+    <div class="panels-wrap">
+        <!-- Panel hiển thị khi đang ở LOGIN (bên phải) -->
+        <div class="panel panel-right">
+            <img src="images/Logo.png" alt="FoxCinema" class="panel-logo">
+            <h3 class="panel-brand">FoxCinema</h3>
+            <p class="panel-text">Nếu chưa có tài khoản thì ấn nút<br>đăng ký bạn nhé :3</p>
+            <button type="button" class="switch-btn" id="goRegister">Đăng ký</button>
+        </div>
+
+        <!-- Panel hiển thị khi đang ở REGISTER (bên trái) -->
+        <div class="panel panel-left">
+            <img src="images/Logo.png" alt="FoxCinema" class="panel-logo">
+            <h3 class="panel-brand">FoxCinema</h3>
+            <p class="panel-text">Nếu đã có tài khoản, hãy nhấn<br>nút ĐĂNG NHẬP phía dưới</p>
+            <button type="button" class="switch-btn" id="goLogin">Đăng nhập</button>
+        </div>
+    </div>
+</div>
+
+<script src="Auth/auth.js"></script>
+</body>
+</html>

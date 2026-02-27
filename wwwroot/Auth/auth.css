@@ -1,0 +1,325 @@
+/* ============================
+   AUTH PAGE - FoxCinema
+   ============================ */
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── Container ── */
+.auth-container {
+    position: relative;
+    width: min(860px, 92vw);
+    min-height: 560px;
+    border-radius: var(--fc-radius-xl);
+    overflow: hidden;
+    box-shadow: var(--fc-shadow-lg), 0 0 60px rgba(229, 9, 20, 0.08);
+    display: flex;
+    animation: fcScaleIn var(--fc-dur-slow) var(--fc-ease) both;
+}
+
+/* ======================
+   FORMS WRAPPER
+   ====================== */
+.forms-wrap {
+    position: relative;
+    width: 58%;
+    min-height: 100%;
+    background: linear-gradient(160deg, var(--fc-red) 0%, var(--fc-red-hover) 100%);
+    z-index: 2;
+    transition: transform var(--fc-dur-slide) var(--fc-ease);
+}
+
+.form {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--fc-sp-3xl) 48px;
+    transition: opacity var(--fc-dur-slow) var(--fc-ease), visibility var(--fc-dur-slow) var(--fc-ease);
+}
+
+.form-title {
+    color: var(--fc-white);
+    font-size: var(--fc-fs-2xl);
+    font-style: italic;
+    font-weight: var(--fc-fw-bold);
+    margin-bottom: var(--fc-sp-2xl);
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* -- Inputs -- */
+.input-group {
+    margin-bottom: var(--fc-sp-lg);
+}
+
+.input-group label {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: var(--fc-fw-semibold);
+    font-size: var(--fc-fs-sm);
+    margin-bottom: var(--fc-sp-sm);
+    letter-spacing: 0.3px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: var(--fc-sp-md) var(--fc-sp-lg);
+    border: 2px solid transparent;
+    border-radius: var(--fc-radius-pill);
+    background: var(--fc-cream);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-base);
+    color: var(--fc-text-dark);
+    outline: none;
+    transition: border-color var(--fc-dur) var(--fc-ease),
+                box-shadow var(--fc-dur) var(--fc-ease),
+                transform var(--fc-dur) var(--fc-ease);
+}
+
+.input-group input:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+/* -- Submit button -- */
+.submit-btn {
+    margin-top: var(--fc-sp-md);
+    padding: var(--fc-sp-md) var(--fc-sp-2xl);
+    border: 2px solid var(--fc-cream);
+    border-radius: var(--fc-radius-pill);
+    background: transparent;
+    color: var(--fc-cream);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-md);
+    font-weight: var(--fc-fw-bold);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background var(--fc-dur) var(--fc-ease),
+                color var(--fc-dur) var(--fc-ease),
+                transform var(--fc-dur) var(--fc-ease),
+                box-shadow var(--fc-dur) var(--fc-ease);
+    align-self: stretch;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn:hover {
+    background: var(--fc-cream);
+    color: var(--fc-red);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.submit-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* -- Message area -- */
+.message {
+    min-height: 22px;
+    text-align: center;
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-semibold);
+    margin: var(--fc-sp-xs) 0;
+    transition: opacity var(--fc-dur) var(--fc-ease);
+}
+
+.message.error   { color: #ffcdd2; }
+.message.success { color: #a5d6a7; }
+
+/* ======================
+   PANELS WRAPPER
+   ====================== */
+.panels-wrap {
+    position: relative;
+    width: 42%;
+    min-height: 100%;
+    z-index: 2;
+    transition: transform var(--fc-dur-slide) var(--fc-ease);
+}
+
+.panel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--fc-sp-3xl) var(--fc-sp-2xl);
+    background: var(--fc-cream);
+    text-align: center;
+    transition: opacity var(--fc-dur-slow) var(--fc-ease), visibility var(--fc-dur-slow) var(--fc-ease);
+}
+
+.panel-logo {
+    width: 110px;
+    height: auto;
+    margin-bottom: var(--fc-sp-md);
+    pointer-events: none;
+    filter: drop-shadow(0 4px 12px rgba(229, 9, 20, 0.15));
+    transition: transform var(--fc-dur) var(--fc-ease);
+}
+
+.panel:hover .panel-logo {
+    transform: scale(1.04);
+}
+
+.panel-brand {
+    color: var(--fc-red);
+    font-size: var(--fc-fs-xl);
+    font-style: italic;
+    font-weight: var(--fc-fw-bold);
+    margin-bottom: var(--fc-sp-base);
+    letter-spacing: 0.5px;
+}
+
+.panel-text {
+    color: var(--fc-red);
+    font-size: var(--fc-fs-sm);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: var(--fc-sp-xl);
+    opacity: 0.85;
+}
+
+.switch-btn {
+    padding: var(--fc-sp-md) var(--fc-sp-3xl);
+    border: none;
+    border-radius: var(--fc-radius-pill);
+    background: var(--fc-red);
+    color: var(--fc-white);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-base);
+    font-weight: var(--fc-fw-bold);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background var(--fc-dur) var(--fc-ease),
+                transform var(--fc-dur) var(--fc-ease),
+                box-shadow var(--fc-dur) var(--fc-ease);
+}
+
+.switch-btn:hover {
+    background: var(--fc-red-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--fc-shadow-red);
+}
+
+.switch-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* ======================
+   MODE: LOGIN  (default)
+   ====================== */
+.auth-container .forms-wrap   { order: 1; }
+.auth-container .panels-wrap  { order: 2; }
+
+.login-form    { opacity: 1; visibility: visible; }
+.register-form { opacity: 0; visibility: hidden; }
+
+.panel-right { opacity: 1; visibility: visible; }
+.panel-left  { opacity: 0; visibility: hidden; }
+
+/* ======================
+   MODE: REGISTER  (.is-register)
+   ====================== */
+.auth-container.is-register .forms-wrap {
+    transform: translateX(72.41%);
+}
+
+.auth-container.is-register .panels-wrap {
+    transform: translateX(-138.1%);
+}
+
+.auth-container.is-register .login-form    { opacity: 0; visibility: hidden; }
+.auth-container.is-register .register-form { opacity: 1; visibility: visible; }
+
+.auth-container.is-register .panel-right { opacity: 0; visibility: hidden; }
+.auth-container.is-register .panel-left  { opacity: 1; visibility: visible; }
+
+/* ======================
+   RESPONSIVE
+   ====================== */
+@media (max-width: 700px) {
+    .auth-container {
+        flex-direction: column;
+        width: 92vw;
+        min-height: auto;
+        border-radius: var(--fc-radius-xl);
+    }
+
+    .forms-wrap,
+    .panels-wrap {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .forms-wrap { order: 2; }
+    .panels-wrap { order: 1; height: 200px; }
+
+    .form {
+        position: relative;
+        padding: var(--fc-sp-2xl) var(--fc-sp-xl);
+    }
+
+    .form-title {
+        font-size: var(--fc-fs-xl);
+        margin-bottom: var(--fc-sp-lg);
+    }
+
+    .panel {
+        padding: var(--fc-sp-lg) var(--fc-sp-base);
+    }
+
+    .panel-logo {
+        width: 60px;
+        margin-bottom: var(--fc-sp-sm);
+    }
+
+    .panel-brand {
+        font-size: 17px;
+        margin-bottom: var(--fc-sp-sm);
+    }
+
+    .panel-text {
+        font-size: var(--fc-fs-xs);
+        margin-bottom: var(--fc-sp-md);
+    }
+
+    .switch-btn {
+        padding: var(--fc-sp-md) var(--fc-sp-2xl);
+        font-size: var(--fc-fs-sm);
+    }
+
+    .auth-container .forms-wrap,
+    .auth-container .panels-wrap,
+    .auth-container.is-register .forms-wrap,
+    .auth-container.is-register .panels-wrap {
+        transform: none;
+    }
+
+    .register-form { display: none; }
+    .panel-left    { display: none; }
+
+    .auth-container.is-register .login-form    { display: none; }
+    .auth-container.is-register .register-form { display: flex; opacity: 1; visibility: visible; }
+
+    .auth-container.is-register .panel-right { display: none; }
+    .auth-container.is-register .panel-left  { display: flex; opacity: 1; visibility: visible; }
+}

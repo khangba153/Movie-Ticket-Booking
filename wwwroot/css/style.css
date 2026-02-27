@@ -1,0 +1,152 @@
+/* ============================
+   HOME PAGE - FoxCinema
+   ============================ */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--fc-sp-lg) var(--fc-sp-3xl);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid var(--fc-border);
+    position: sticky;
+    top: 0;
+    z-index: var(--fc-z-dropdown);
+}
+
+.logo {
+    font-weight: var(--fc-fw-bold);
+    font-size: var(--fc-fs-lg);
+    color: var(--fc-red);
+    letter-spacing: 1px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: var(--fc-sp-lg);
+}
+
+.nav a {
+    color: var(--fc-text);
+    text-decoration: none;
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-medium);
+    padding: var(--fc-sp-sm) var(--fc-sp-md);
+    border-radius: var(--fc-radius-sm);
+    transition: color var(--fc-dur) var(--fc-ease),
+                background var(--fc-dur) var(--fc-ease);
+}
+
+.nav a:hover,
+.nav a.active {
+    color: var(--fc-red);
+    background: var(--fc-red-light);
+}
+
+.logout-btn {
+    background: var(--fc-red);
+    color: var(--fc-white);
+    border: none;
+    padding: var(--fc-sp-sm) var(--fc-sp-base);
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-semibold);
+    cursor: pointer;
+    transition: background var(--fc-dur) var(--fc-ease),
+                transform var(--fc-dur) var(--fc-ease),
+                box-shadow var(--fc-dur) var(--fc-ease);
+}
+
+.logout-btn:hover {
+    background: var(--fc-red-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--fc-shadow-red);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+}
+
+.title {
+    text-align: center;
+    margin: var(--fc-sp-3xl) 0 var(--fc-sp-2xl);
+    font-size: var(--fc-fs-2xl);
+    font-weight: var(--fc-fw-bold);
+    letter-spacing: 2px;
+    color: var(--fc-white);
+    animation: fcSlideDown var(--fc-dur-slow) var(--fc-ease) both;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--fc-sp-2xl);
+    padding: 0 var(--fc-sp-4xl) var(--fc-sp-4xl);
+}
+
+.movie-card {
+    background: var(--fc-panel);
+    border: 1px solid var(--fc-border);
+    border-radius: var(--fc-radius-lg);
+    padding: var(--fc-sp-sm);
+    text-align: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform var(--fc-dur) var(--fc-ease),
+                box-shadow var(--fc-dur) var(--fc-ease),
+                border-color var(--fc-dur) var(--fc-ease);
+    animation: fcSlideUp var(--fc-dur-slow) var(--fc-ease) both;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(229, 9, 20, 0.2);
+    border-color: var(--fc-red);
+}
+
+.movie-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+    cursor: pointer;
+}
+
+.movie-card h3 {
+    padding: var(--fc-sp-md) var(--fc-sp-sm) var(--fc-sp-sm);
+    font-size: var(--fc-fs-md);
+    font-weight: var(--fc-fw-semibold);
+    line-height: 1.4;
+}
+
+.poster {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: var(--fc-radius-md);
+    margin-bottom: var(--fc-sp-sm);
+    transition: filter var(--fc-dur) var(--fc-ease);
+}
+
+.movie-card:hover .poster {
+    filter: brightness(1.08);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .movie-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+    .movie-grid { grid-template-columns: repeat(2, 1fr); gap: var(--fc-sp-lg); padding: 0 var(--fc-sp-lg) var(--fc-sp-3xl); }
+}
+
+@media (max-width: 600px) {
+    .movie-grid { grid-template-columns: 1fr; }
+    .header { padding: var(--fc-sp-md) var(--fc-sp-base); }
+}

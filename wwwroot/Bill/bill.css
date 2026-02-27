@@ -1,0 +1,238 @@
+/* ============================
+   BILL PAGE - FoxCinema
+   ============================ */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--fc-sp-lg);
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    animation: fcSlideUp var(--fc-dur-slow) var(--fc-ease) both;
+}
+
+.bill-card {
+    background: var(--fc-panel);
+    border: 1px solid var(--fc-border);
+    border-radius: var(--fc-radius-xl);
+    padding: var(--fc-sp-2xl);
+    color: var(--fc-white);
+    box-shadow: var(--fc-shadow-lg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+}
+
+.bill-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--fc-red), var(--fc-gold));
+}
+
+h1 {
+    text-align: center;
+    font-size: var(--fc-fs-xl);
+    font-weight: var(--fc-fw-bold);
+    margin-bottom: var(--fc-sp-xl);
+    color: var(--fc-white);
+    letter-spacing: 2px;
+}
+
+/* QR Section */
+.qr-section {
+    text-align: center;
+    margin-bottom: var(--fc-sp-2xl);
+    padding: var(--fc-sp-base);
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: var(--fc-radius-md);
+    border: 1px solid var(--fc-border);
+}
+
+#qrCanvas {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+/* Info Section */
+.info-section {
+    margin-bottom: var(--fc-sp-2xl);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--fc-sp-md) 0;
+    border-bottom: 1px solid var(--fc-border);
+    font-size: var(--fc-fs-sm);
+}
+
+.info-row .label {
+    color: var(--fc-text-muted);
+    font-weight: var(--fc-fw-medium);
+}
+
+.info-row .value {
+    color: var(--fc-white);
+    font-weight: var(--fc-fw-semibold);
+    text-align: right;
+    max-width: 60%;
+    word-break: break-word;
+}
+
+/* Price Section */
+.price-section {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: var(--fc-radius-md);
+    padding: var(--fc-sp-lg);
+    margin-bottom: var(--fc-sp-xl);
+    border: 1px solid var(--fc-border);
+}
+
+.price-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-semibold);
+    color: var(--fc-text-muted);
+    margin-bottom: var(--fc-sp-md);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-separator {
+    border-bottom: 1px solid var(--fc-border);
+    margin: var(--fc-sp-md) 0;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--fc-sp-md) 0;
+    font-size: var(--fc-fs-sm);
+}
+
+.price-label {
+    color: var(--fc-text-muted);
+}
+
+.price-value {
+    color: var(--fc-white);
+    font-weight: var(--fc-fw-medium);
+}
+
+.price-total {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--fc-sp-base) 0;
+    border-top: 2px solid var(--fc-red);
+    border-bottom: 2px solid var(--fc-red);
+}
+
+.total-label {
+    color: var(--fc-white);
+    font-weight: var(--fc-fw-bold);
+    font-size: var(--fc-fs-md);
+}
+
+.total-value {
+    color: var(--fc-red);
+    font-weight: var(--fc-fw-bold);
+    font-size: var(--fc-fs-lg);
+}
+
+.price-note {
+    font-size: var(--fc-fs-xs);
+    color: var(--fc-text-muted);
+    margin-top: var(--fc-sp-base);
+    font-style: italic;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: var(--fc-sp-md);
+    margin-top: var(--fc-sp-xl);
+}
+
+.btn {
+    flex: 1;
+    padding: var(--fc-sp-md) var(--fc-sp-lg);
+    border: none;
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-md);
+    font-weight: var(--fc-fw-semibold);
+    cursor: pointer;
+    transition: all var(--fc-dur) var(--fc-ease);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background: var(--fc-red);
+    color: var(--fc-white);
+    box-shadow: var(--fc-shadow-red);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--fc-red-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--fc-red-glow);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--fc-white);
+    border: 1px solid var(--fc-border-light);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.14);
+}
+
+/* Loading State */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .bill-card {
+        padding: var(--fc-sp-lg);
+    }
+
+    h1 {
+        font-size: var(--fc-fs-lg);
+        margin-bottom: var(--fc-sp-lg);
+    }
+
+    .info-row {
+        font-size: var(--fc-fs-sm);
+        padding: var(--fc-sp-md) 0;
+    }
+
+    .price-section {
+        padding: var(--fc-sp-base);
+    }
+
+    .total-value {
+        font-size: var(--fc-fs-md);
+    }
+}

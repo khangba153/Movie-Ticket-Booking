@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết vé - FoxCinema</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="./bill.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="bill-card">
+        <h1>CHI TIẾT VÉ</h1>
+
+        <!-- QR Code Section -->
+        <div class="qr-section">
+            <canvas id="qrCanvas"></canvas>
+        </div>
+
+        <!-- Movie & Time Info -->
+        <div class="info-section">
+            <div class="info-row">
+                <span class="label">Tên Phim</span>
+                <span id="movieTitle" class="value">-</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Ngày</span>
+                <span id="showtimeDate" class="value">-</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Suất chiếu</span>
+                <span id="showtimeTime" class="value">-</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Số Ghế</span>
+                <span id="seatCodes" class="value">-</span>
+            </div>
+        </div>
+
+        <!-- Price Details Section -->
+        <div class="price-section">
+            <div class="price-header">
+                <span>Chi Tiết</span>
+                <span>Giá</span>
+            </div>
+            <div class="price-separator"></div>
+            
+            <div class="price-row">
+                <span class="price-label">Giá</span>
+                <span id="seatPriceDisplay" class="price-value">-</span>
+            </div>
+            <div class="price-row">
+                <span class="price-label">VAT (8%)</span>
+                <span id="vatDisplay" class="price-value">-</span>
+            </div>
+            <div class="price-separator"></div>
+            
+            <div class="price-total">
+                <span class="total-label">Tổng</span>
+                <span id="totalDisplay" class="total-value">-</span>
+            </div>
+
+            <div class="price-note">
+                *Lưu ý: Vé đã được đặt sẽ không được hoàn lại
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+            <button id="backBtn" class="btn btn-secondary">QUAY LẠI</button>
+            <button id="bookBtn" class="btn btn-primary">ĐẶT VÉ</button>
+        </div>
+    </div>
+</div>
+
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="./bill.js"></script>
+</body>
+</html>

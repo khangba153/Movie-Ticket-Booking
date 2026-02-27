@@ -1,0 +1,298 @@
+/* ============================
+   MOVIE DETAIL PAGE - FoxCinema
+   ============================ */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: var(--fc-sp-3xl) var(--fc-sp-lg);
+    animation: fcSlideUp var(--fc-dur-slow) var(--fc-ease) both;
+}
+
+.movie-header {
+    display: flex;
+    gap: var(--fc-sp-3xl);
+}
+
+.poster {
+    width: 300px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: var(--fc-radius-md);
+    box-shadow: var(--fc-shadow-lg);
+    border: 1px solid var(--fc-border);
+    transition: transform var(--fc-dur) var(--fc-ease);
+}
+
+.poster:hover {
+    transform: scale(1.02);
+}
+
+.movie-info {
+    flex: 1;
+}
+
+.movie-info h1 {
+    font-size: var(--fc-fs-2xl);
+    font-weight: var(--fc-fw-bold);
+    margin-bottom: var(--fc-sp-base);
+    letter-spacing: 0.5px;
+}
+
+.movie-info p {
+    margin-bottom: var(--fc-sp-md);
+    line-height: 1.7;
+    color: var(--fc-text);
+    font-size: var(--fc-fs-base);
+}
+
+.movie-info strong {
+    color: var(--fc-gold);
+}
+
+.showtime-section {
+    margin-top: var(--fc-sp-3xl);
+    padding: var(--fc-sp-xl);
+    border-radius: var(--fc-radius-lg);
+    background: var(--fc-panel);
+    border: 1px solid var(--fc-border);
+    box-shadow: var(--fc-shadow-lg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.showtime-section h2 {
+    font-size: var(--fc-fs-xl);
+    font-weight: var(--fc-fw-bold);
+    letter-spacing: 1px;
+}
+
+.date-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fc-sp-sm);
+    margin: var(--fc-sp-base) 0 var(--fc-sp-xl);
+    overflow-x: auto;
+    padding-bottom: var(--fc-sp-sm);
+}
+
+.date-btn {
+    padding: var(--fc-sp-sm) var(--fc-sp-base);
+    border-radius: var(--fc-radius-xl);
+    border: 1px solid var(--fc-border-light);
+    background: transparent;
+    color: var(--fc-white);
+    cursor: pointer;
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-medium);
+    transition: all var(--fc-dur) var(--fc-ease);
+}
+
+.date-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+}
+
+.date-btn.active {
+    background: var(--fc-red);
+    color: var(--fc-white);
+    border-color: var(--fc-red);
+    box-shadow: var(--fc-shadow-red);
+}
+
+/* Cinema accordion */
+.cinema-card {
+    border: 1px solid var(--fc-border-light);
+    border-radius: var(--fc-radius-md);
+    margin-bottom: var(--fc-sp-base);
+    overflow: hidden;
+    background: rgba(8, 8, 20, 0.6);
+    transition: border-color var(--fc-dur) var(--fc-ease),
+                box-shadow var(--fc-dur) var(--fc-ease);
+}
+
+.cinema-card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cinema-card.collapsed .cinema-body {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.cinema-body {
+    max-height: 500px;
+    opacity: 1;
+    padding: var(--fc-sp-md) var(--fc-sp-base) var(--fc-sp-lg);
+    transition: max-height var(--fc-dur-slow) var(--fc-ease),
+                opacity var(--fc-dur) var(--fc-ease),
+                padding var(--fc-dur-slow) var(--fc-ease);
+}
+
+.cinema-toggle {
+    width: 100%;
+    padding: var(--fc-sp-md) var(--fc-sp-base);
+    border: 0;
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--fc-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--fc-border);
+    font-family: var(--fc-font);
+    transition: background var(--fc-dur) var(--fc-ease);
+}
+
+.cinema-toggle:hover {
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.cinema-header {
+    display: flex;
+    align-items: center;
+    gap: var(--fc-sp-md);
+}
+
+.cinema-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--fc-radius-round);
+    background: linear-gradient(135deg, var(--fc-red), #ff9800);
+    display: grid;
+    place-items: center;
+    font-weight: var(--fc-fw-bold);
+    font-size: var(--fc-fs-sm);
+    color: var(--fc-white);
+    box-shadow: 0 0 12px rgba(255, 152, 0, 0.35);
+    flex-shrink: 0;
+}
+
+.cinema-meta {
+    text-align: left;
+}
+
+.cinema-name {
+    color: var(--fc-gold);
+    font-weight: var(--fc-fw-bold);
+    font-size: var(--fc-fs-md);
+    line-height: 1.3;
+}
+
+.cinema-address {
+    font-size: var(--fc-fs-sm);
+    color: var(--fc-text-muted);
+}
+
+.chevron {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--fc-white);
+    border-bottom: 2px solid var(--fc-white);
+    transform: rotate(45deg);
+    transition: transform var(--fc-dur) var(--fc-ease);
+    flex-shrink: 0;
+}
+
+.cinema-card.collapsed .chevron {
+    transform: rotate(-45deg);
+}
+
+.format-group {
+    margin-bottom: var(--fc-sp-md);
+}
+
+.format-title {
+    font-style: italic;
+    font-weight: var(--fc-fw-semibold);
+    margin-bottom: var(--fc-sp-sm);
+    font-size: var(--fc-fs-sm);
+    color: var(--fc-text-muted);
+}
+
+.showtime-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fc-sp-sm);
+}
+
+.showtime-btn {
+    padding: var(--fc-sp-sm) var(--fc-sp-md);
+    background: rgba(0, 0, 0, 0.45);
+    color: var(--fc-white);
+    border: 1px solid var(--fc-border-light);
+    border-radius: var(--fc-radius-sm);
+    cursor: pointer;
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-medium);
+    transition: all var(--fc-dur) var(--fc-ease);
+}
+
+.showtime-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+    box-shadow: var(--fc-shadow-sm);
+}
+
+.showtime-btn.selected {
+    background: var(--fc-red);
+    border-color: var(--fc-red);
+    color: var(--fc-white);
+    box-shadow: var(--fc-shadow-red);
+}
+
+.book-btn {
+    padding: var(--fc-sp-md) var(--fc-sp-xl);
+    background: var(--fc-red);
+    color: var(--fc-white);
+    border: none;
+    border-radius: var(--fc-radius-sm);
+    cursor: pointer;
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-bold);
+    letter-spacing: 0.5px;
+    box-shadow: var(--fc-shadow-red);
+    transition: all var(--fc-dur) var(--fc-ease);
+}
+
+.book-btn:hover:not(:disabled) {
+    background: var(--fc-red-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--fc-red-glow);
+}
+
+.book-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.cinema-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--fc-sp-md);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .movie-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .poster {
+        width: 240px;
+        height: 340px;
+    }
+
+    .movie-info h1 {
+        text-align: center;
+    }
+}

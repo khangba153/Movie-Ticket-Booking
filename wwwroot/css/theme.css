@@ -1,0 +1,541 @@
+/* ============================================================
+   FOXCINEMA — DESIGN SYSTEM  (theme.css)
+   Shared tokens, resets, components & motion utilities
+   ============================================================ */
+
+/* ── 1. CSS CUSTOM PROPERTIES ── */
+:root {
+    /* ─ Brand colours ─ */
+    --fc-red:           #e50914;
+    --fc-red-hover:     #c2070f;
+    --fc-red-light:     rgba(229, 9, 20, 0.15);
+    --fc-red-glow:      rgba(229, 9, 20, 0.35);
+    --fc-cream:         #fdf5e6;
+    --fc-cream-dark:    #f5e6cd;
+    --fc-gold:          #ffd54f;
+
+    /* ─ Neutrals ─ */
+    --fc-white:         #ffffff;
+    --fc-text:          #f0f0f0;
+    --fc-text-muted:    rgba(255, 255, 255, 0.6);
+    --fc-text-dark:     #333333;
+    --fc-dark:          #0a0a1a;
+    --fc-panel:         rgba(5, 5, 20, 0.82);
+    --fc-panel-lighter: rgba(15, 15, 35, 0.75);
+    --fc-border:        rgba(255, 255, 255, 0.12);
+    --fc-border-light:  rgba(255, 255, 255, 0.2);
+
+    /* ─ Functional ─ */
+    --fc-success:       #4ade80;
+    --fc-success-bg:    rgba(74, 222, 128, 0.12);
+    --fc-error:         #ff6b6b;
+    --fc-error-bg:      rgba(255, 107, 107, 0.12);
+    --fc-info:          #60a5fa;
+
+    /* ─ Typography ─ */
+    --fc-font:          'Segoe UI', system-ui, -apple-system, sans-serif;
+    --fc-fs-xs:         12px;
+    --fc-fs-sm:         13px;
+    --fc-fs-base:       15px;
+    --fc-fs-md:         16px;
+    --fc-fs-lg:         20px;
+    --fc-fs-xl:         24px;
+    --fc-fs-2xl:        28px;
+    --fc-fs-3xl:        36px;
+    --fc-fw-normal:     400;
+    --fc-fw-medium:     500;
+    --fc-fw-semibold:   600;
+    --fc-fw-bold:       700;
+
+    /* ─ Spacing ─ */
+    --fc-sp-xs:         4px;
+    --fc-sp-sm:         8px;
+    --fc-sp-md:         12px;
+    --fc-sp-base:       16px;
+    --fc-sp-lg:         20px;
+    --fc-sp-xl:         24px;
+    --fc-sp-2xl:        32px;
+    --fc-sp-3xl:        40px;
+    --fc-sp-4xl:        60px;
+
+    /* ─ Radii ─ */
+    --fc-radius-sm:     6px;
+    --fc-radius-md:     10px;
+    --fc-radius-lg:     16px;
+    --fc-radius-xl:     20px;
+    --fc-radius-pill:   30px;
+    --fc-radius-round:  50%;
+
+    /* ─ Shadows ─ */
+    --fc-shadow-sm:     0 2px 8px rgba(0, 0, 0, 0.2);
+    --fc-shadow-md:     0 6px 20px rgba(0, 0, 0, 0.3);
+    --fc-shadow-lg:     0 10px 40px rgba(0, 0, 0, 0.35);
+    --fc-shadow-red:    0 6px 18px var(--fc-red-glow);
+    --fc-shadow-lift:   0 8px 24px rgba(0, 0, 0, 0.4);
+
+    /* ─ Transitions ─ */
+    --fc-ease:          cubic-bezier(0.4, 0, 0.2, 1);
+    --fc-ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+    --fc-dur-fast:      0.15s;
+    --fc-dur:           0.25s;
+    --fc-dur-slow:      0.4s;
+    --fc-dur-slide:     0.5s;
+
+    /* ─ Z-index ─ */
+    --fc-z-dropdown:    100;
+    --fc-z-modal:       1000;
+    --fc-z-toast:       1100;
+}
+
+/* ── 2. GLOBAL RESET  ── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-base);
+    line-height: 1.6;
+    color: var(--fc-text);
+    background: url('../images/bg.jpg') center / cover no-repeat fixed;
+    min-height: 100vh;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--fc-dur) var(--fc-ease);
+}
+
+/* ── 3. SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: var(--fc-red);
+    border-radius: 3px;
+}
+* { scrollbar-width: thin; scrollbar-color: var(--fc-red) transparent; }
+
+/* ── 4. TYPOGRAPHY HELPERS ── */
+.fc-heading {
+    font-weight: var(--fc-fw-bold);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--fc-white);
+}
+
+.fc-label {
+    font-size: var(--fc-fs-xs);
+    font-weight: var(--fc-fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--fc-text-muted);
+}
+
+/* ── 5. SHARED COMPONENT STYLES ── */
+
+/* ─── 5a. Card ─── */
+.fc-card {
+    background: var(--fc-panel);
+    border: 1px solid var(--fc-border);
+    border-radius: var(--fc-radius-lg);
+    box-shadow: var(--fc-shadow-lg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* ─── 5b. Buttons ─── */
+.fc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--fc-sp-sm);
+    padding: var(--fc-sp-md) var(--fc-sp-xl);
+    border: none;
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-md);
+    font-weight: var(--fc-fw-bold);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition:
+        background var(--fc-dur) var(--fc-ease),
+        color var(--fc-dur) var(--fc-ease),
+        transform var(--fc-dur) var(--fc-ease),
+        box-shadow var(--fc-dur) var(--fc-ease);
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.fc-btn:hover {
+    transform: translateY(-2px);
+}
+
+.fc-btn:active {
+    transform: translateY(0);
+}
+
+.fc-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Primary */
+.fc-btn-primary {
+    background: var(--fc-red);
+    color: var(--fc-white);
+    box-shadow: var(--fc-shadow-red);
+}
+
+.fc-btn-primary:hover:not(:disabled) {
+    background: var(--fc-red-hover);
+    box-shadow: 0 8px 24px var(--fc-red-glow);
+}
+
+/* Secondary / Ghost */
+.fc-btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--fc-white);
+    border: 1px solid var(--fc-border-light);
+}
+
+.fc-btn-secondary:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+/* Outline */
+.fc-btn-outline {
+    background: transparent;
+    color: var(--fc-cream);
+    border: 2px solid var(--fc-cream);
+}
+
+.fc-btn-outline:hover:not(:disabled) {
+    background: var(--fc-cream);
+    color: var(--fc-red);
+}
+
+/* ─── 5c. Inputs ─── */
+.fc-input {
+    width: 100%;
+    padding: var(--fc-sp-md) var(--fc-sp-lg);
+    border: 2px solid transparent;
+    border-radius: var(--fc-radius-pill);
+    background: var(--fc-cream);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-base);
+    color: var(--fc-text-dark);
+    outline: none;
+    transition:
+        border-color var(--fc-dur) var(--fc-ease),
+        box-shadow var(--fc-dur) var(--fc-ease);
+}
+
+.fc-input::placeholder {
+    color: #999;
+}
+
+.fc-input:focus {
+    border-color: var(--fc-red);
+    box-shadow: 0 0 0 3px var(--fc-red-light);
+}
+
+/* ─── 5d. Badge ─── */
+.fc-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--fc-sp-xs) var(--fc-sp-md);
+    border-radius: var(--fc-radius-xl);
+    font-size: var(--fc-fs-xs);
+    font-weight: var(--fc-fw-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.fc-badge-success {
+    background: var(--fc-success-bg);
+    color: var(--fc-success);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.fc-badge-muted {
+    background: rgba(107, 114, 128, 0.2);
+    color: #9ca3af;
+    border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+/* ─── 5e. Tabs ─── */
+.fc-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--fc-sp-base);
+    margin-bottom: var(--fc-sp-3xl);
+}
+
+.fc-tab-btn {
+    background: transparent;
+    color: var(--fc-white);
+    border: 2px solid var(--fc-red);
+    padding: var(--fc-sp-md) var(--fc-sp-3xl);
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-md);
+    font-weight: var(--fc-fw-bold);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition:
+        background var(--fc-dur) var(--fc-ease),
+        color var(--fc-dur) var(--fc-ease),
+        transform var(--fc-dur) var(--fc-ease),
+        box-shadow var(--fc-dur) var(--fc-ease);
+}
+
+.fc-tab-btn:hover {
+    background: var(--fc-red-light);
+    transform: translateY(-2px);
+}
+
+.fc-tab-btn.active {
+    background: var(--fc-red);
+    border-color: var(--fc-red);
+    box-shadow: var(--fc-shadow-red);
+}
+
+/* ─── 5f. Inline messages ─── */
+.fc-msg {
+    min-height: 22px;
+    text-align: center;
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-semibold);
+    margin: var(--fc-sp-xs) 0;
+    transition: opacity var(--fc-dur) var(--fc-ease);
+}
+
+.fc-msg-error   { color: var(--fc-error); }
+.fc-msg-success { color: var(--fc-success); }
+
+/* ── 6. HEADER / NAV BAR ── */
+.fc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--fc-sp-lg) var(--fc-sp-3xl);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid var(--fc-border);
+    position: sticky;
+    top: 0;
+    z-index: var(--fc-z-dropdown);
+}
+
+.fc-logo {
+    font-weight: var(--fc-fw-bold);
+    font-size: var(--fc-fs-lg);
+    letter-spacing: 1px;
+    color: var(--fc-red);
+}
+
+.fc-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--fc-sp-lg);
+}
+
+.fc-nav a {
+    color: var(--fc-text);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-medium);
+    padding: var(--fc-sp-sm) var(--fc-sp-md);
+    border-radius: var(--fc-radius-sm);
+    transition:
+        color var(--fc-dur) var(--fc-ease),
+        background var(--fc-dur) var(--fc-ease);
+}
+
+.fc-nav a:hover,
+.fc-nav a.active {
+    color: var(--fc-red);
+    background: var(--fc-red-light);
+}
+
+.fc-nav .fc-welcome {
+    font-size: var(--fc-fs-sm);
+    color: var(--fc-text-muted);
+    margin-right: var(--fc-sp-sm);
+}
+
+/* ── 7. MODAL ── */
+.fc-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: var(--fc-z-modal);
+    align-items: center;
+    justify-content: center;
+    padding: var(--fc-sp-base);
+    animation: fcFadeIn var(--fc-dur) var(--fc-ease);
+}
+
+.fc-modal-backdrop[style*="display: flex"],
+.fc-modal-backdrop.is-open {
+    display: flex;
+}
+
+.fc-modal {
+    background: linear-gradient(160deg, rgba(20, 20, 45, 0.97), rgba(12, 12, 30, 0.97));
+    border: 2px solid var(--fc-red);
+    border-radius: var(--fc-radius-lg);
+    padding: clamp(20px, 4vw, 36px);
+    width: min(520px, 95vw);
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: var(--fc-shadow-lg);
+    animation: fcSlideUp var(--fc-dur-slow) var(--fc-ease-spring);
+}
+
+.fc-modal-close {
+    position: absolute;
+    top: var(--fc-sp-md);
+    right: var(--fc-sp-md);
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--fc-white);
+    cursor: pointer;
+    transition: color var(--fc-dur) var(--fc-ease), transform var(--fc-dur) var(--fc-ease);
+    line-height: 1;
+    padding: var(--fc-sp-xs) var(--fc-sp-sm);
+    z-index: 10;
+}
+
+.fc-modal-close:hover {
+    color: var(--fc-red);
+    transform: rotate(90deg);
+}
+
+/* ── 8. KEYFRAME ANIMATIONS ── */
+@keyframes fcFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes fcSlideUp {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fcSlideDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fcScaleIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fcPulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.04); }
+}
+
+@keyframes fcCheckmark {
+    from { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes fcShimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* ── 9. UTILITY CLASSES ── */
+.fc-animate-in {
+    animation: fcSlideUp var(--fc-dur-slow) var(--fc-ease) both;
+}
+
+.fc-stagger-1 { animation-delay: 0.05s; }
+.fc-stagger-2 { animation-delay: 0.10s; }
+.fc-stagger-3 { animation-delay: 0.15s; }
+.fc-stagger-4 { animation-delay: 0.20s; }
+
+.fc-text-center { text-align: center; }
+.fc-text-right  { text-align: right; }
+
+.fc-mt-sm { margin-top: var(--fc-sp-sm); }
+.fc-mt-md { margin-top: var(--fc-sp-md); }
+.fc-mt-lg { margin-top: var(--fc-sp-lg); }
+.fc-mt-xl { margin-top: var(--fc-sp-xl); }
+
+.fc-mb-sm { margin-bottom: var(--fc-sp-sm); }
+.fc-mb-md { margin-bottom: var(--fc-sp-md); }
+.fc-mb-lg { margin-bottom: var(--fc-sp-lg); }
+.fc-mb-xl { margin-bottom: var(--fc-sp-xl); }
+
+/* Loading shimmer placeholder */
+.fc-skeleton {
+    background: linear-gradient(90deg,
+        rgba(255,255,255,.06) 25%,
+        rgba(255,255,255,.12) 50%,
+        rgba(255,255,255,.06) 75%);
+    background-size: 200% 100%;
+    animation: fcShimmer 1.5s infinite;
+    border-radius: var(--fc-radius-sm);
+}
+
+/* ── 10. REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ── 11. RESPONSIVE HELPERS ── */
+@media (max-width: 768px) {
+    :root {
+        --fc-fs-3xl: 28px;
+        --fc-fs-2xl: 22px;
+        --fc-fs-xl:  20px;
+    }
+
+    .fc-header {
+        padding: var(--fc-sp-md) var(--fc-sp-base);
+    }
+
+    .fc-tabs {
+        flex-direction: column;
+        gap: var(--fc-sp-sm);
+    }
+
+    .fc-tab-btn {
+        width: 100%;
+    }
+}

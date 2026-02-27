@@ -1,0 +1,217 @@
+/* ============================
+   SUCCESS PAGE - FoxCinema
+   ============================ */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--fc-sp-lg);
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.success-card {
+    background: var(--fc-panel);
+    border: 1px solid var(--fc-border);
+    border-radius: var(--fc-radius-xl);
+    padding: var(--fc-sp-3xl) var(--fc-sp-2xl);
+    color: var(--fc-white);
+    box-shadow: var(--fc-shadow-lg);
+    text-align: center;
+    animation: fcSlideUp var(--fc-dur-slow) var(--fc-ease) both;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+}
+
+.success-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--fc-success), var(--fc-red));
+}
+
+/* Success Icon */
+.success-icon {
+    margin-bottom: var(--fc-sp-2xl);
+}
+
+.success-icon svg {
+    width: 70px;
+    height: 70px;
+    color: var(--fc-success);
+    filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.35));
+    animation: fcCheckmark 0.6s var(--fc-ease) both;
+}
+
+/* Title */
+h1 {
+    font-size: var(--fc-fs-xl);
+    font-weight: var(--fc-fw-bold);
+    margin-bottom: var(--fc-sp-xl);
+    color: var(--fc-white);
+    letter-spacing: 1px;
+}
+
+/* Confirmation Number */
+.confirmation-number {
+    background: var(--fc-red-light);
+    border: 2px solid var(--fc-red);
+    border-radius: var(--fc-radius-md);
+    padding: var(--fc-sp-lg);
+    margin-bottom: var(--fc-sp-2xl);
+}
+
+.confirmation-number .label {
+    display: block;
+    font-size: var(--fc-fs-xs);
+    color: var(--fc-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--fc-sp-sm);
+}
+
+.confirmation-number .number {
+    display: block;
+    font-size: var(--fc-fs-2xl);
+    font-weight: var(--fc-fw-bold);
+    color: var(--fc-red);
+    letter-spacing: 2px;
+}
+
+/* Info Section */
+.info-section {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: var(--fc-radius-md);
+    padding: var(--fc-sp-lg);
+    margin-bottom: var(--fc-sp-xl);
+    text-align: left;
+    border: 1px solid var(--fc-border);
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--fc-sp-md) 0;
+    border-bottom: 1px solid var(--fc-border);
+    font-size: var(--fc-fs-sm);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: var(--fc-text-muted);
+    font-weight: var(--fc-fw-medium);
+}
+
+.info-value {
+    color: var(--fc-white);
+    font-weight: var(--fc-fw-semibold);
+    text-align: right;
+    max-width: 60%;
+    word-break: break-word;
+}
+
+/* Message */
+.message {
+    background: var(--fc-red-light);
+    border-left: 4px solid var(--fc-red);
+    padding: var(--fc-sp-base);
+    border-radius: var(--fc-radius-sm);
+    margin-bottom: var(--fc-sp-xl);
+    font-size: var(--fc-fs-sm);
+    line-height: 1.7;
+    color: var(--fc-text-muted);
+    text-align: left;
+}
+
+.message p {
+    margin: 0;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: var(--fc-sp-md);
+}
+
+.btn {
+    flex: 1;
+    padding: var(--fc-sp-md) var(--fc-sp-lg);
+    border: none;
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-semibold);
+    cursor: pointer;
+    transition: all var(--fc-dur) var(--fc-ease);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background: var(--fc-red);
+    color: var(--fc-white);
+    box-shadow: var(--fc-shadow-red);
+}
+
+.btn-primary:hover {
+    background: var(--fc-red-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--fc-red-glow);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--fc-white);
+    border: 1px solid var(--fc-border-light);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.14);
+    transform: translateY(-2px);
+}
+
+/* Loading State */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .success-card {
+        padding: var(--fc-sp-2xl) var(--fc-sp-lg);
+    }
+
+    h1 {
+        font-size: var(--fc-fs-lg);
+    }
+
+    .success-icon svg {
+        width: 60px;
+        height: 60px;
+    }
+
+    .confirmation-number .number {
+        font-size: var(--fc-fs-xl);
+    }
+
+    .info-item {
+        font-size: var(--fc-fs-sm);
+    }
+
+    .message {
+        font-size: var(--fc-fs-xs);
+    }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt vé thành công - FoxCinema</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="./success.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="success-card">
+        <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="16 12 12 8 8 12"></polyline>
+                <line x1="12" y1="16" x2="12" y2="8"></line>
+            </svg>
+        </div>
+
+        <h1>ĐẶT VÉ THÀNH CÔNG!</h1>
+        
+        <div class="confirmation-number">
+            <span class="label">Mã xác nhận</span>
+            <span id="bookingId" class="number">-</span>
+        </div>
+
+        <div class="info-section">
+            <div class="info-item">
+                <span class="info-label">Tên Phim</span>
+                <span id="movieTitle" class="info-value">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Ngày & Giờ</span>
+                <span id="showtimeDateTime" class="info-value">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Vị trí ghế</span>
+                <span id="seatCodes" class="info-value">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Tổng tiền</span>
+                <span id="totalPrice" class="info-value" style="color: var(--fc-red); font-weight: 700;">-</span>
+            </div>
+        </div>
+
+        <div class="message">
+            <p>Vé của bạn đã được xác nhận. Vui lòng kiểm tra email hoặc tin nhắn để nhận mã QR vé vào.</p>
+        </div>
+
+        <div class="button-group">
+            <button id="homeBtn" class="btn btn-primary">TRANG CHỦ</button>
+            <button id="downloadBtn" class="btn btn-secondary">VÉ CỦA TÔI</button>
+        </div>
+    </div>
+</div>
+
+<script src="./success.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test Images</title>
+    <style>
+        body {
+            background-color: #222;
+            color: white;
+            font-family: Arial;
+            padding: 20px;
+        }
+        img {
+            width: 200px;
+            margin: 10px;
+            border: 2px solid white;
+        }
+        .test-section {
+            margin: 20px 0;
+            border: 1px solid white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TEST HIỂN THỊ HÌNH ẢNH</h1>
+    
+    <div class="test-section">
+        <h2>1. Test ảnh poster phim (từ /images/)</h2>
+        <img src="/images/inception.jpg" alt="Inception">
+        <img src="/images/kungfu.jpg" alt="Kung Fu Panda">
+        <img src="/images/ironman.jpg" alt="Iron Man">
+        <img src="/images/pirates.jpg" alt="Pirates">
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test ảnh background</h2>
+        <img src="/images/bg.jpg" alt="Background" style="width: 400px;">
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test với đường dẫn tương đối</h2>
+        <img src="images/inception.jpg" alt="Inception (relative)">
+    </div>
+
+    <div class="test-section">
+        <h2>4. Kiểm tra từ JavaScript</h2>
+        <div id="js-test"></div>
+        <script>
+            // Test load từ API
+            fetch('/api/movie/1')
+                .then(res => res.json())
+                .then(movie => {
+                    document.getElementById('js-test').innerHTML = 
+                        '<p>Movie: ' + movie.title + '</p>' +
+                        '<p>PosterUrl từ API: ' + movie.posterUrl + '</p>' +
+                        '<img src="' + movie.posterUrl + '" alt="From API">';
+                })
+                .catch(err => {
+                    document.getElementById('js-test').innerHTML = 
+                        '<p style="color:red;">LỖI: ' + err + '</p>';
+                });
+        </script>
+    </div>
+
+    <br><br>
+    <a href="/" style="color: cyan;">← Quay về Home</a>
+</body>
+</html>

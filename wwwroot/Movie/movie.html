@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết phim - FoxCinema</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="movie.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="movie-header">
+        <img id="poster" class="poster"/>
+
+        <div class="movie-info">
+            <h1 id="title"></h1>
+
+            <p id="description"></p>
+
+            <p><strong>Thể loại:</strong> <span id="genre"></span></p>
+            <p>
+                <strong>Khởi chiếu:</strong> <span id="releaseDate"></span> |
+                <strong>Thời lượng:</strong> <span id="duration"></span> |
+                <strong>Giới hạn tuổi:</strong> <span id="age"></span>
+            </p>
+
+            <p><strong>Diễn viên:</strong> <span id="cast"></span></p>
+            <p><strong>Đạo diễn:</strong> <span id="director"></span></p>
+            <p><strong>Nhà sản xuất:</strong> <span id="producer"></span></p>
+        </div>
+    </div>
+
+    <div class="showtime-section">
+        <h2>Lịch chiếu</h2>
+
+        <!-- DATE SELECTOR -->
+        <div class="date-selector" id="dateSelector"></div>
+
+        <!-- CINEMA LIST -->
+        <div id="cinemaContainer"></div>
+
+        
+    </div>
+
+</div>
+
+<script src="movie.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn ghế - FoxCinema</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="./seat.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="seat-selection">
+        <h1>Chọn ghế</h1>
+
+        <div class="screen-container">
+            <div class="screen">Screen</div>
+        </div>
+
+        <div class="seats-grid" id="seatsGrid"></div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="seat-legend available"></div>
+                <span>Ghế trống</span>
+            </div>
+            <div class="legend-item">
+                <div class="seat-legend booked"></div>
+                <span>Ghế đã đặt</span>
+            </div>
+            <div class="legend-item">
+                <div class="seat-legend selected"></div>
+                <span>Ghế đang chọn</span>
+            </div>
+        </div>
+
+        <div class="booking-panel">
+            <div class="panel-left">
+                <div class="price-info">
+                    <div class="price-label">Giá</div>
+                    <div class="price-value" id="totalPrice">0 VND</div>
+                </div>
+                <div class="seat-list">
+                    <div class="seat-list-label">Ghế đã chọn</div>
+                    <div class="selected-seats" id="selectedSeats"></div>
+                </div>
+            </div>
+            <button class="confirm-btn" id="confirmBtn" disabled>XÁC NHẬN</button>
+        </div>
+    </div>
+</div>
+
+<script src="./seat.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Navigation</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-section {
+            border: 2px solid #fff;
+            padding: 20px;
+            margin: 20px 0;
+            background: #2a2a2a;
+        }
+        .success { color: #0f0; }
+        .error { color: #f00; }
+        .movie-card {
+            background: #000;
+            border-radius: 20px;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+        }
+        .movie-card a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            cursor: pointer;
+        }
+        .movie-card a:hover {
+            opacity: 0.8;
+        }
+        .poster {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 TEST NAVIGATION & IMAGES</h1>
+
+    <div class="test-section">
+        <h2>Test 1: Direct Links (Bấm vào link để test)</h2>
+        <ul>
+            <li><a href="/Movie/movie.html?id=1" style="color: cyan;">Movie Detail - Inception (ID=1)</a></li>
+            <li><a href="/Movie/movie.html?id=2" style="color: cyan;">Movie Detail - Kung Fu Panda (ID=2)</a></li>
+            <li><a href="/Movie/movie.html?id=3" style="color: cyan;">Movie Detail - Iron Man (ID=3)</a></li>
+            <li><a href="/Movie/movie.html?id=4" style="color: cyan;">Movie Detail - Pirates (ID=4)</a></li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Image Links (Như trên home page)</h2>
+        <div id="test-cards"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: JavaScript Navigation</h2>
+        <button onclick="testNavigate(1)">Navigate to Movie 1</button>
+        <button onclick="testNavigate(2)">Navigate to Movie 2</button>
+        <div id="js-status"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: API Data Check</h2>
+        <button onclick="checkAPI()">Load Movies from API</button>
+        <div id="api-result"></div>
+    </div>
+
+    <br><br>
+    <a href="/" style="color: cyan; font-size: 18px;">← Quay về Home</a>
+
+    <script>
+        // Test 2: Load movies như home page
+        async function loadTestCards() {
+            try {
+                const response = await fetch("/api/movie");
+                const movies = await response.json();
+                
+                const container = document.getElementById("test-cards");
+                container.innerHTML = "";
+                
+                movies.forEach(movie => {
+                    const card = document.createElement("div");
+                    card.className = "movie-card";
+                    card.innerHTML = `
+                        <a href="Movie/movie.html?id=${movie.movieId}">
+                            <img src="${movie.posterUrl}" class="poster" alt="${movie.title}">
+                            <h3>${movie.title}</h3>
+                        </a>
+                    `;
+                    container.appendChild(card);
+                });
+                
+                document.getElementById("js-status").innerHTML = 
+                    '<p class="success">✅ Loaded ' + movies.length + ' movies</p>';
+            } catch (error) {
+                document.getElementById("js-status").innerHTML = 
+                    '<p class="error">❌ Error: ' + error.message + '</p>';
+            }
+        }
+
+        // Test 3: JavaScript navigation
+        function testNavigate(id) {
+            window.location.href = `/Movie/movie.html?id=${id}`;
+        }
+
+        // Test 4: Check API
+        async function checkAPI() {
+            const result = document.getElementById("api-result");
+            result.innerHTML = '<p>Loading...</p>';
+            
+            try {
+                const response = await fetch("/api/movie");
+                const movies = await response.json();
+                
+                let html = '<p class="success">✅ API Response OK</p><ul>';
+                movies.forEach(m => {
+                    html += `<li>${m.title} - PosterUrl: ${m.posterUrl}</li>`;
+                });
+                html += '</ul>';
+                result.innerHTML = html;
+            } catch (error) {
+                result.innerHTML = '<p class="error">❌ API Error: ' + error.message + '</p>';
+            }
+        }
+
+        // Auto load cards on page load
+        loadTestCards();
+    </script>
+</body>
+</html>
