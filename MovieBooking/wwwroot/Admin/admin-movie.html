@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoxCinema - Quản lý Phim</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/Admin/admin.css">
+</head>
+<body>
+    <header class="fc-header">
+        <div class="fc-logo">FoxCinema ADMIN</div>
+        <nav class="fc-nav">
+            <span class="fc-welcome" id="welcomeAdmin"></span>
+            <a href="/home.html">Trang chủ</a>
+            <button class="fc-btn fc-btn-secondary" id="logoutBtn" style="padding:6px 16px;font-size:13px;">Đăng xuất</button>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-tabs">
+            <a href="/Admin/admin-movie.html" class="active">Phim</a>
+            <a href="/Admin/admin-cinema.html">Rạp</a>
+            <a href="/Admin/admin-showtime.html">Lịch Chiếu</a>
+            <a href="/Admin/admin-booking.html">Đơn Vé</a>
+        </div>
+
+        <div class="admin-toolbar">
+            <input type="text" class="search-box" id="searchBox" placeholder="Tìm kiếm phim...">
+            <button class="btn-add" id="btnAdd">+ Thêm Phim</button>
+        </div>
+
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Poster</th>
+                        <th>Tên phim</th>
+                        <th>Thể loại</th>
+                        <th>Ngày chiếu</th>
+                        <th>Thời lượng</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="movieTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Add/Edit -->
+    <div class="fc-modal-backdrop" id="movieModal">
+        <div class="fc-modal" style="width:min(600px,95vw);">
+            <button class="fc-modal-close" id="modalClose">&times;</button>
+            <h2 class="modal-title" id="modalTitle">Thêm Phim</h2>
+            <form id="movieForm">
+                <input type="hidden" id="movieId">
+                <div class="admin-form-group">
+                    <label>Tên phim *</label>
+                    <input type="text" id="fTitle" required>
+                </div>
+                <div class="admin-form-group">
+                    <label>Mô tả</label>
+                    <textarea id="fDescription"></textarea>
+                </div>
+                <div class="admin-form-row">
+                    <div class="admin-form-group">
+                        <label>Thể loại</label>
+                        <input type="text" id="fGenre">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Thời lượng (phút) *</label>
+                        <input type="number" id="fDuration" min="1" required>
+                    </div>
+                </div>
+                <div class="admin-form-row">
+                    <div class="admin-form-group">
+                        <label>Ngày phát hành</label>
+                        <input type="date" id="fReleaseDate">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Giới hạn độ tuổi</label>
+                        <input type="text" id="fAgeRestriction" placeholder="P, T13, T16, T18">
+                    </div>
+                </div>
+                <div class="admin-form-group">
+                    <label>Diễn viên</label>
+                    <input type="text" id="fCast">
+                </div>
+                <div class="admin-form-row">
+                    <div class="admin-form-group">
+                        <label>Đạo diễn</label>
+                        <input type="text" id="fDirector">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Nhà sản xuất</label>
+                        <input type="text" id="fProducer">
+                    </div>
+                </div>
+                <div class="admin-form-group">
+                    <label>Poster URL</label>
+                    <input type="text" id="fPosterUrl" placeholder="/images/poster.jpg">
+                </div>
+                <div class="admin-form-group">
+                    <label class="admin-form-check">
+                        <input type="checkbox" id="fIsActive" checked>
+                        Đang hoạt động
+                    </label>
+                </div>
+                <button type="submit" class="btn-submit" id="btnSubmit">Lưu</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="fc-modal-backdrop" id="confirmModal">
+        <div class="fc-modal" style="width:min(400px,90vw);">
+            <h2 class="modal-title">Xác nhận</h2>
+            <p class="confirm-text" id="confirmText">Bạn có muốn vô hiệu hóa phim này?</p>
+            <div class="confirm-actions">
+                <button class="btn-cancel" id="btnCancelDelete">Hủy</button>
+                <button class="btn-confirm-delete" id="btnConfirmDelete">Vô hiệu hóa</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Admin/admin-movie.js"></script>
+</body>
+</html>

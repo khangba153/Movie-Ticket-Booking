@@ -24,7 +24,7 @@ namespace MovieBooking.Controllers
             if (user == null)
                 return Unauthorized(new { message = "Tên người dùng hoặc mật khẩu không đúng." });
 
-            return Ok(new { userId = user.Id, username = user.Username });
+            return Ok(new { userId = user.Id, username = user.Username, role = user.Role });
         }
 
         [HttpPost("register")]

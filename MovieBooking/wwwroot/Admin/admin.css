@@ -1,0 +1,380 @@
+/* ============================================================
+   ADMIN MODULE — FoxCinema  (admin.css)
+   ============================================================ */
+
+/* ── Layout ── */
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--fc-sp-xl) var(--fc-sp-2xl);
+}
+
+.admin-title {
+    font-size: var(--fc-fs-2xl);
+    font-weight: var(--fc-fw-bold);
+    color: var(--fc-white);
+    text-align: center;
+    margin-bottom: var(--fc-sp-xl);
+    letter-spacing: 1px;
+}
+
+/* ── Tabs ── */
+.admin-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--fc-sp-sm);
+    margin-bottom: var(--fc-sp-2xl);
+    flex-wrap: wrap;
+}
+
+.admin-tabs a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fc-sp-sm);
+    padding: var(--fc-sp-md) var(--fc-sp-xl);
+    border: 2px solid var(--fc-red);
+    border-radius: var(--fc-radius-sm);
+    color: var(--fc-white);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: background var(--fc-dur) var(--fc-ease),
+                color var(--fc-dur) var(--fc-ease),
+                transform var(--fc-dur) var(--fc-ease),
+                box-shadow var(--fc-dur) var(--fc-ease);
+}
+
+.admin-tabs a:hover {
+    background: var(--fc-red-light);
+    transform: translateY(-2px);
+}
+
+.admin-tabs a.active {
+    background: var(--fc-red);
+    border-color: var(--fc-red);
+    box-shadow: var(--fc-shadow-red);
+}
+
+/* ── Toolbar ── */
+.admin-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--fc-sp-md);
+    margin-bottom: var(--fc-sp-lg);
+}
+
+.admin-toolbar .search-box {
+    flex: 1;
+    min-width: 200px;
+    max-width: 350px;
+    padding: var(--fc-sp-sm) var(--fc-sp-lg);
+    border: 1px solid var(--fc-border-light);
+    border-radius: var(--fc-radius-sm);
+    background: rgba(255,255,255, 0.06);
+    color: var(--fc-white);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    outline: none;
+    transition: border-color var(--fc-dur) var(--fc-ease);
+}
+
+.admin-toolbar .search-box::placeholder { color: var(--fc-text-muted); }
+.admin-toolbar .search-box:focus { border-color: var(--fc-red); }
+
+.admin-toolbar .filter-group {
+    display: flex;
+    gap: var(--fc-sp-sm);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.admin-toolbar select,
+.admin-toolbar input[type="date"] {
+    padding: var(--fc-sp-sm) var(--fc-sp-md);
+    border: 1px solid var(--fc-border-light);
+    border-radius: var(--fc-radius-sm);
+    background: rgba(255,255,255,0.06);
+    color: var(--fc-white);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    outline: none;
+}
+
+.admin-toolbar select option { background: #1a1a2e; color: #fff; }
+
+.btn-add {
+    padding: var(--fc-sp-sm) var(--fc-sp-lg);
+    background: var(--fc-red);
+    color: var(--fc-white);
+    border: none;
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-bold);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    transition: background var(--fc-dur) var(--fc-ease),
+                transform var(--fc-dur) var(--fc-ease);
+}
+
+.btn-add:hover { background: var(--fc-red-hover); transform: translateY(-1px); }
+
+/* ── Table ── */
+.admin-table-wrap {
+    background: var(--fc-panel);
+    border: 1px solid var(--fc-border);
+    border-radius: var(--fc-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--fc-shadow-md);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fc-fs-sm);
+}
+
+.admin-table thead {
+    background: rgba(229,9,20,0.15);
+}
+
+.admin-table th {
+    padding: var(--fc-sp-md) var(--fc-sp-base);
+    text-align: left;
+    font-weight: var(--fc-fw-bold);
+    color: var(--fc-red);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: var(--fc-fs-xs);
+    white-space: nowrap;
+}
+
+.admin-table td {
+    padding: var(--fc-sp-md) var(--fc-sp-base);
+    border-top: 1px solid var(--fc-border);
+    color: var(--fc-text);
+    vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+    background: rgba(255,255,255,0.03);
+}
+
+.admin-table .poster-thumb {
+    width: 45px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: var(--fc-radius-sm);
+}
+
+.admin-table .status-active {
+    color: var(--fc-success);
+    font-weight: var(--fc-fw-bold);
+}
+
+.admin-table .status-inactive {
+    color: var(--fc-error);
+    font-weight: var(--fc-fw-bold);
+}
+
+/* ── Action buttons ── */
+.btn-edit,
+.btn-delete {
+    padding: var(--fc-sp-xs) var(--fc-sp-md);
+    border: none;
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-xs);
+    font-weight: var(--fc-fw-bold);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: opacity var(--fc-dur) var(--fc-ease);
+}
+
+.btn-edit {
+    background: var(--fc-info);
+    color: var(--fc-white);
+    margin-right: var(--fc-sp-xs);
+}
+
+.btn-delete {
+    background: var(--fc-error);
+    color: var(--fc-white);
+}
+
+.btn-edit:hover, .btn-delete:hover { opacity: 0.8; }
+
+/* ── Modal form ── */
+.admin-form-group {
+    margin-bottom: var(--fc-sp-base);
+}
+
+.admin-form-group label {
+    display: block;
+    font-size: var(--fc-fs-xs);
+    font-weight: var(--fc-fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--fc-text-muted);
+    margin-bottom: var(--fc-sp-xs);
+}
+
+.admin-form-group input,
+.admin-form-group select,
+.admin-form-group textarea {
+    width: 100%;
+    padding: var(--fc-sp-sm) var(--fc-sp-md);
+    border: 1px solid var(--fc-border-light);
+    border-radius: var(--fc-radius-sm);
+    background: rgba(255,255,255,0.06);
+    color: var(--fc-white);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    outline: none;
+    transition: border-color var(--fc-dur) var(--fc-ease);
+}
+
+.admin-form-group input:focus,
+.admin-form-group select:focus,
+.admin-form-group textarea:focus {
+    border-color: var(--fc-red);
+}
+
+.admin-form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.admin-form-group select option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.admin-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--fc-sp-md);
+}
+
+.admin-form-check {
+    display: flex;
+    align-items: center;
+    gap: var(--fc-sp-sm);
+}
+
+.admin-form-check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--fc-red);
+}
+
+.modal-title {
+    font-size: var(--fc-fs-lg);
+    font-weight: var(--fc-fw-bold);
+    color: var(--fc-white);
+    margin-bottom: var(--fc-sp-lg);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: var(--fc-sp-md);
+    background: var(--fc-red);
+    color: var(--fc-white);
+    border: none;
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-md);
+    font-weight: var(--fc-fw-bold);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: var(--fc-sp-md);
+    transition: background var(--fc-dur) var(--fc-ease);
+}
+
+.btn-submit:hover { background: var(--fc-red-hover); }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Confirm dialog ── */
+.confirm-text {
+    font-size: var(--fc-fs-base);
+    color: var(--fc-text);
+    margin-bottom: var(--fc-sp-xl);
+    text-align: center;
+}
+
+.confirm-actions {
+    display: flex;
+    gap: var(--fc-sp-md);
+    justify-content: center;
+}
+
+.btn-cancel {
+    padding: var(--fc-sp-sm) var(--fc-sp-xl);
+    background: rgba(255,255,255,0.08);
+    color: var(--fc-white);
+    border: 1px solid var(--fc-border-light);
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-bold);
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-confirm-delete {
+    padding: var(--fc-sp-sm) var(--fc-sp-xl);
+    background: var(--fc-error);
+    color: var(--fc-white);
+    border: none;
+    border-radius: var(--fc-radius-sm);
+    font-family: var(--fc-font);
+    font-size: var(--fc-fs-sm);
+    font-weight: var(--fc-fw-bold);
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+/* ── Empty state ── */
+.empty-state {
+    text-align: center;
+    padding: var(--fc-sp-4xl) var(--fc-sp-xl);
+    color: var(--fc-text-muted);
+    font-size: var(--fc-fs-base);
+}
+
+/* ── Money format ── */
+.money { white-space: nowrap; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .admin-container {
+        padding: var(--fc-sp-md);
+    }
+
+    .admin-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-toolbar .search-box { max-width: 100%; }
+
+    .admin-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-table-wrap {
+        overflow-x: auto;
+    }
+
+    .admin-tabs a {
+        font-size: var(--fc-fs-xs);
+        padding: var(--fc-sp-sm) var(--fc-sp-md);
+    }
+}

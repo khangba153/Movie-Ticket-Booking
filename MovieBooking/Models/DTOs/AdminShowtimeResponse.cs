@@ -1,19 +1,14 @@
-namespace MovieBooking.Models
+namespace MovieBooking.Models.DTOs
 {
-    public class Showtime
+    public class AdminShowtimeResponse
     {
         public int ShowtimeId { get; set; }
-
         public int MovieId { get; set; }
-        public Movie Movie { get; set; } = null!;
-
+        public string MovieTitle { get; set; } = string.Empty;
         public int CinemaId { get; set; }
-        public Cinema Cinema { get; set; } = null!;
-
+        public string CinemaName { get; set; } = string.Empty;
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public decimal Price { get; set; }
-
-        public List<Booking> Bookings { get; set; } = new();
     }
 }

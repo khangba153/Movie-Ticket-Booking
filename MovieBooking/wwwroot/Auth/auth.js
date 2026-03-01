@@ -67,9 +67,14 @@ loginForm.addEventListener("submit", async (e) => {
         // Save user info
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("username", data.username);
+        localStorage.setItem("role", data.role || "User");
 
-        // Redirect to home
-        window.location.href = "/home.html";
+        // Redirect based on role
+        if (data.role === "Admin") {
+            window.location.href = "/Admin/admin.html";
+        } else {
+            window.location.href = "/home.html";
+        }
 
     } catch (err) {
         console.error("Login error:", err);

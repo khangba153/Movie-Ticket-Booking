@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoxCinema - Quản lý Lịch Chiếu</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/Admin/admin.css">
+</head>
+<body>
+    <header class="fc-header">
+        <div class="fc-logo">FoxCinema ADMIN</div>
+        <nav class="fc-nav">
+            <span class="fc-welcome" id="welcomeAdmin"></span>
+            <a href="/home.html">Trang chủ</a>
+            <button class="fc-btn fc-btn-secondary" id="logoutBtn" style="padding:6px 16px;font-size:13px;">Đăng xuất</button>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-tabs">
+            <a href="/Admin/admin-movie.html">Phim</a>
+            <a href="/Admin/admin-cinema.html">Rạp</a>
+            <a href="/Admin/admin-showtime.html" class="active">Lịch Chiếu</a>
+            <a href="/Admin/admin-booking.html">Đơn Vé</a>
+        </div>
+
+        <div class="admin-toolbar">
+            <div class="filter-group">
+                <select id="filterMovie"><option value="">-- Tất cả phim --</option></select>
+                <select id="filterCinema"><option value="">-- Tất cả rạp --</option></select>
+                <input type="date" id="filterDate">
+            </div>
+            <button class="btn-add" id="btnAdd">+ Thêm Lịch Chiếu</button>
+        </div>
+
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Phim</th>
+                        <th>Rạp</th>
+                        <th>Bắt đầu</th>
+                        <th>Kết thúc</th>
+                        <th>Giá vé</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="showtimeTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Add/Edit -->
+    <div class="fc-modal-backdrop" id="showtimeModal">
+        <div class="fc-modal" style="width:min(500px,90vw);">
+            <button class="fc-modal-close" id="modalClose">&times;</button>
+            <h2 class="modal-title" id="modalTitle">Thêm Lịch Chiếu</h2>
+            <form id="showtimeForm">
+                <input type="hidden" id="showtimeId">
+                <div class="admin-form-group">
+                    <label>Phim *</label>
+                    <select id="fMovieId" required><option value="">-- Chọn phim --</option></select>
+                </div>
+                <div class="admin-form-group">
+                    <label>Rạp *</label>
+                    <select id="fCinemaId" required><option value="">-- Chọn rạp --</option></select>
+                </div>
+                <div class="admin-form-row">
+                    <div class="admin-form-group">
+                        <label>Thời gian bắt đầu *</label>
+                        <input type="datetime-local" id="fStartTime" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Giá vé (VND) *</label>
+                        <input type="number" id="fPrice" min="0" step="1000" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Lưu</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="fc-modal-backdrop" id="confirmModal">
+        <div class="fc-modal" style="width:min(400px,90vw);">
+            <h2 class="modal-title">Xác nhận xóa</h2>
+            <p class="confirm-text">Bạn có chắc muốn xóa lịch chiếu này?</p>
+            <div class="confirm-actions">
+                <button class="btn-cancel" id="btnCancelDelete">Hủy</button>
+                <button class="btn-confirm-delete" id="btnConfirmDelete">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Admin/admin-showtime.js"></script>
+</body>
+</html>

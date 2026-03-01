@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using MovieBooking.Data;
 using MovieBooking.Services;
@@ -17,6 +18,12 @@ builder.Services.AddScoped<IShowtimeService, ShowtimeService>();
 builder.Services.AddScoped<ISeatService, SeatService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+// Đăng ký Admin Services
+builder.Services.AddScoped<IAdminMovieService, AdminMovieService>();
+builder.Services.AddScoped<IAdminCinemaService, AdminCinemaService>();
+builder.Services.AddScoped<IAdminShowtimeService, AdminShowtimeService>();
+builder.Services.AddScoped<IAdminBookingService, AdminBookingService>();
 
 // Đăng ký Controllers
 builder.Services.AddControllers()
@@ -116,6 +123,27 @@ async Task SeedSeatsAsync(ApplicationDbContext dbContext)
             dbContext.Users.Add(user);
             await dbContext.SaveChangesAsync();
             Console.WriteLine($"✅ Seeded test user with Id={user.Id}");
+        }
+
+        // Seed admin user if not exist
+        if (!dbContext.Users.Any(u => u.Role == "Admin"))
+        {
+            byte[] salt = RandomNumberGenerator.GetBytes(16);
+            using var sha = SHA256.Create();
+            byte[] hash = sha.ComputeHash(salt.Concat(System.Text.Encoding.UTF8.GetBytes("admin123")).ToArray());
+            string passwordHash = Convert.ToBase64String(salt) + ":" + Convert.ToBase64String(hash);
+
+            var admin = new MovieBooking.Models.User
+            {
+                Username = "admin",
+                Name = "Administrator",
+                Email = "admin@foxcinema.com",
+                PasswordHash = passwordHash,
+                Role = "Admin"
+            };
+            dbContext.Users.Add(admin);
+            await dbContext.SaveChangesAsync();
+            Console.WriteLine($"✅ Seeded admin user (admin/admin123) with Id={admin.Id}");
         }
 
         // Note: Bookings will be created through the UI/API

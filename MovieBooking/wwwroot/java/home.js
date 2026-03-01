@@ -13,12 +13,17 @@ document.addEventListener("DOMContentLoaded", function () {
         welcomeEl.textContent = "Xin chào, " + username;
     }
 
+    // Show admin link if admin
+    const adminLink = document.getElementById("adminLink");
+    if (adminLink && localStorage.getItem("role") === "Admin") {
+        adminLink.style.display = "";
+    }
+
     // Logout
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", function () {
-            localStorage.removeItem("userId");
-            localStorage.removeItem("username");
+            localStorage.clear();
             window.location.href = "/auth.html";
         });
     }
