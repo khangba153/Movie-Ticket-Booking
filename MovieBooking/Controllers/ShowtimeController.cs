@@ -14,11 +14,37 @@ namespace MovieBooking.Controllers
             _service = service;
         }
 
+        // Project showtime to flat DTO to avoid circular reference bloat
+        private object MapShowtime(MovieBooking.Models.Showtime s) => new
+        {
+            s.ShowtimeId,
+            s.MovieId,
+            s.CinemaId,
+            s.StartTime,
+            s.EndTime,
+            s.Price,
+            Movie = s.Movie == null ? null : new
+            {
+                s.Movie.MovieId,
+                s.Movie.Title,
+                s.Movie.DurationMinutes,
+                s.Movie.PosterUrl,
+                s.Movie.Genre,
+                s.Movie.AgeRestriction
+            },
+            Cinema = s.Cinema == null ? null : new
+            {
+                s.Cinema.CinemaId,
+                s.Cinema.Name,
+                s.Cinema.Address
+            }
+        };
+
         [HttpGet]
         public async Task<IActionResult> GetShowtimes()
         {
             var showtimes = await _service.GetAllShowtimesAsync();
-            return Ok(showtimes);
+            return Ok(showtimes.Select(MapShowtime));
         }
 
         [HttpGet("{id}")]
@@ -32,7 +58,7 @@ namespace MovieBooking.Controllers
             if (showtime == null)
                 return NotFound();
 
-            return Ok(showtime);
+            return Ok(MapShowtime(showtime));
         }
 
         [HttpGet("movie/{movieId}")]
@@ -42,7 +68,7 @@ namespace MovieBooking.Controllers
                 return BadRequest("Movie ID không hợp lệ.");
 
             var showtimes = await _service.GetShowtimesByMovieAsync(movieId);
-            return Ok(showtimes);
+            return Ok(showtimes.Select(MapShowtime));
         }
 
         [HttpGet("cinema/{cinemaId}")]
@@ -52,7 +78,7 @@ namespace MovieBooking.Controllers
                 return BadRequest("Cinema ID không hợp lệ.");
 
             var showtimes = await _service.GetShowtimesByCinemaAsync(cinemaId);
-            return Ok(showtimes);
+            return Ok(showtimes.Select(MapShowtime));
         }
 
         [HttpGet("movie/{movieId}/date/{date}")]
@@ -62,7 +88,7 @@ namespace MovieBooking.Controllers
                 return BadRequest("Movie ID không hợp lệ.");
 
             var showtimes = await _service.GetShowtimesByMovieAndDate(movieId, date);
-            return Ok(showtimes);
+            return Ok(showtimes.Select(MapShowtime));
         }
     }
 }

@@ -47,10 +47,25 @@ else
     app.UseHttpsRedirection();
 }
 
-// Thêm headers để cho phép script chạy
+// Thêm headers để cho phép script chạy (chỉ cho HTML responses)
 app.Use(async (context, next) =>
 {
-    context.Response.Headers.Append("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
+    context.Response.OnStarting(() =>
+    {
+        var contentType = context.Response.ContentType ?? "";
+        if (contentType.Contains("text/html", StringComparison.OrdinalIgnoreCase))
+        {
+            context.Response.Headers.Append("Content-Security-Policy",
+                "default-src 'self'; " +
+                "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; " +
+                "style-src 'self' 'unsafe-inline'; " +
+                "img-src 'self' data: blob:; " +
+                "connect-src 'self'; " +
+                "font-src 'self'; " +
+                "worker-src 'self' blob:;");
+        }
+        return Task.CompletedTask;
+    });
     await next();
 });
 
@@ -148,6 +163,9 @@ async Task SeedSeatsAsync(ApplicationDbContext dbContext)
 
         // Note: Bookings will be created through the UI/API
 
+        // Auto-seed demo showtimes relative to today
+        await SeedDynamicShowtimesAsync(dbContext);
+
         // Seed BookingDetails for the seeded booking (D4, D5, D6 in Cinema 1)
         if (!dbContext.BookingDetails.Any())
         {
@@ -179,3 +197,82 @@ async Task SeedSeatsAsync(ApplicationDbContext dbContext)
 }
 
 app.Run();
+
+// Auto-generate demo showtimes so there are always future showtimes available
+async Task SeedDynamicShowtimesAsync(ApplicationDbContext dbContext)
+{
+    try
+    {
+        var today = DateTime.Today;
+        // Check the latest showtime in DB
+        var latestShowtime = await dbContext.Showtimes.MaxAsync(s => (DateTime?)s.StartTime);
+        var lastCoveredDate = latestShowtime?.Date ?? today.AddDays(-1);
+
+        // Always ensure showtimes exist for the next 7 days from today
+        var targetEndDate = today.AddDays(7);
+
+        if (lastCoveredDate >= targetEndDate)
+        {
+            return; // Already have enough future showtimes
+        }
+
+        // Start generating from the day after the last covered date (or today)
+        var startDate = lastCoveredDate < today ? today : lastCoveredDate.AddDays(1);
+
+        int[] movieIds = { 1, 2, 3, 4 };
+        int[] movieDurations = { 148, 92, 126, 143 }; // minutes
+        int[] cinemaIds = { 1, 2, 3, 4 };
+
+        // Time slots: morning, afternoon, evening (+ late night on weekends)
+        var weekdaySlots = new[] { (10, 0), (14, 30), (19, 0) };
+        var weekendSlots = new[] { (10, 0), (14, 0), (18, 0), (21, 0) };
+
+        // Prices: weekday vs weekend
+        decimal[] weekdayPrices = { 90000m, 120000m, 150000m };
+        decimal[] weekendPrices = { 100000m, 130000m, 160000m, 180000m };
+
+        // Get next available ShowtimeId
+        var newShowtimes = new List<MovieBooking.Models.Showtime>();
+
+        for (var date = startDate; date <= targetEndDate; date = date.AddDays(1))
+        {
+            bool isWeekend = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
+            var slots = isWeekend ? weekendSlots : weekdaySlots;
+            var prices = isWeekend ? weekendPrices : weekdayPrices;
+
+            for (int m = 0; m < movieIds.Length; m++)
+            {
+                int movieId = movieIds[m];
+                int duration = movieDurations[m];
+
+                for (int s = 0; s < slots.Length; s++)
+                {
+                    // Rotate cinema: each movie+slot combo gets a different cinema
+                    int cinemaId = cinemaIds[(m + s + (int)(date - today).TotalDays) % cinemaIds.Length];
+                    var startTime = date.AddHours(slots[s].Item1).AddMinutes(slots[s].Item2);
+                    var endTime = startTime.AddMinutes(duration);
+
+                    newShowtimes.Add(new MovieBooking.Models.Showtime
+                    {
+                        MovieId = movieId,
+                        CinemaId = cinemaId,
+                        StartTime = startTime,
+                        EndTime = endTime,
+                        Price = prices[s]
+                    });
+                }
+            }
+        }
+
+        if (newShowtimes.Count > 0)
+        {
+            dbContext.Showtimes.AddRange(newShowtimes);
+            await dbContext.SaveChangesAsync();
+            Console.WriteLine($"✅ Auto-seeded {newShowtimes.Count} showtimes ({startDate:dd/MM} → {targetEndDate:dd/MM})");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"⚠️ Dynamic showtime seeding skipped: {ex.Message}");
+    }
+}

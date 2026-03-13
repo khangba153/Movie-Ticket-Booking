@@ -5,6 +5,12 @@ let currentTab = 'current'; // 'current' or 'history'
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', () => {
+    // Check login
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+        window.location.href = '../auth.html';
+        return;
+    }
     setupEventListeners();
     loadUserTickets();
 });
@@ -48,8 +54,11 @@ async function loadUserTickets() {
     showLoading();
 
     try {
-        // Get userId from localStorage (assuming it's stored there after login)
-        const userId = localStorage.getItem('userId') || 1; // Default to 1 for testing
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            showError('Vui lòng đăng nhập để xem vé.');
+            return;
+        }
 
         const response = await fetch(`/api/booking/user/${userId}`);
         
@@ -105,12 +114,8 @@ function renderTickets() {
         grid.appendChild(ticketCard);
     });
 
-    // Generate QR codes after rendering
-    setTimeout(() => {
-        filteredTickets.forEach(ticket => {
-            generateQRCode(ticket.bookingId);
-        });
-    }, 100);
+    // Generate QR codes after rendering (retry if QRCode lib not loaded yet)
+    generateQRCodesWhenReady(filteredTickets);
 }
 
 // Create ticket card HTML
@@ -177,6 +182,18 @@ function createTicketCard(ticket) {
     `;
 
     return card;
+}
+
+// Retry QR code generation until library is loaded (async CDN)
+function generateQRCodesWhenReady(tickets, retries = 10) {
+    if (tickets.length === 0) return;
+    if (typeof QRCode === 'undefined') {
+        if (retries > 0) {
+            setTimeout(() => generateQRCodesWhenReady(tickets, retries - 1), 500);
+        }
+        return;
+    }
+    tickets.forEach(ticket => generateQRCode(ticket.bookingId));
 }
 
 // Generate QR code for a ticket

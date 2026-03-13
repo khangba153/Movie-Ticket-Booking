@@ -33,13 +33,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function loadMovies() {
     console.log("🎬 Loading movies from API...");
+    const container = document.getElementById("movie-list");
     try {
         const response = await fetch("/api/movie");
         console.log("✅ API Response:", response.status);
+
+        if (!response.ok) {
+            throw new Error("Server error: " + response.status);
+        }
+
         const movies = await response.json();
         console.log("✅ Movies loaded:", movies.length, "movies");
 
-        const container = document.getElementById("movie-list");
         container.innerHTML = "";
 
         if (movies.length === 0) {
@@ -71,5 +76,6 @@ async function loadMovies() {
 
     } catch (error) {
         console.error("Lỗi khi tải phim:", error);
+        container.innerHTML = '<p style="color:#e50914;text-align:center;padding:40px;">Không thể tải danh sách phim. Vui lòng tải lại trang.</p>';
     }
 }
