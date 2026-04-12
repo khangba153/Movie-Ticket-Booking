@@ -72,7 +72,7 @@ app.Use(async (context, next) =>
 // Cấu hình default file là home.html
 var defaultFilesOptions = new DefaultFilesOptions();
 defaultFilesOptions.DefaultFileNames.Clear();
-defaultFilesOptions.DefaultFileNames.Add("auth.html");
+defaultFilesOptions.DefaultFileNames.Add("home.html");
 app.UseDefaultFiles(defaultFilesOptions);
 
 // Kích hoạt Static Files (phải trước routing)

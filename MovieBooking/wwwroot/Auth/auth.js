@@ -9,6 +9,7 @@ const loginForm   = document.getElementById("loginForm");
 const registerForm= document.getElementById("registerForm");
 const loginMsg    = document.getElementById("loginMessage");
 const registerMsg = document.getElementById("registerMessage");
+const POST_AUTH_REDIRECT_KEY = "postAuthRedirect";
 
 // ── Toggle mode ──
 goRegister.addEventListener("click", () => {
@@ -68,6 +69,13 @@ loginForm.addEventListener("submit", async (e) => {
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("username", data.username);
         localStorage.setItem("role", data.role || "User");
+
+        const redirectPath = sessionStorage.getItem(POST_AUTH_REDIRECT_KEY);
+        if (redirectPath) {
+            sessionStorage.removeItem(POST_AUTH_REDIRECT_KEY);
+            window.location.href = redirectPath;
+            return;
+        }
 
         // Redirect based on role
         if (data.role === "Admin") {

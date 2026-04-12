@@ -1,29 +1,44 @@
+const POST_AUTH_REDIRECT_KEY = "postAuthRedirect";
+
 document.addEventListener("DOMContentLoaded", function () {
-    // Check login
-    const userId = localStorage.getItem("userId");
-    const username = localStorage.getItem("username");
-    if (!userId) {
-        window.location.href = "/auth.html";
-        return;
-    }
-
-    // Show welcome
     const welcomeEl = document.getElementById("welcomeUser");
-    if (welcomeEl && username) {
-        welcomeEl.textContent = "Xin chào, " + username;
-    }
-
-    // Show admin link if admin
     const adminLink = document.getElementById("adminLink");
-    if (adminLink && localStorage.getItem("role") === "Admin") {
-        adminLink.style.display = "";
+    const myTicketsLink = document.getElementById("myTicketsLink");
+    const authActionBtn = document.getElementById("authActionBtn");
+
+    const userId = parseInt(localStorage.getItem("userId"), 10);
+    const username = localStorage.getItem("username");
+    const role = localStorage.getItem("role");
+    const isLoggedIn = Number.isInteger(userId) && userId > 0;
+
+    if (welcomeEl) {
+        welcomeEl.textContent = isLoggedIn
+            ? `Xin chào, ${username || "bạn"}`
+            : "Bạn đang xem với tư cách khách";
     }
 
-    // Logout
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", function () {
-            localStorage.clear();
+    if (adminLink) {
+        adminLink.style.display = isLoggedIn && role === "Admin" ? "" : "none";
+    }
+
+    if (myTicketsLink && !isLoggedIn) {
+        myTicketsLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            sessionStorage.setItem(POST_AUTH_REDIRECT_KEY, "/MyTickets/mytickets.html");
+            window.location.href = "/auth.html";
+        });
+    }
+
+    if (authActionBtn) {
+        authActionBtn.textContent = isLoggedIn ? "Đăng xuất" : "Đăng nhập / Đăng ký";
+        authActionBtn.addEventListener("click", function () {
+            if (isLoggedIn) {
+                clearAuthState();
+                window.location.href = "/home.html";
+                return;
+            }
+
+            sessionStorage.removeItem(POST_AUTH_REDIRECT_KEY);
             window.location.href = "/auth.html";
         });
     }
@@ -53,29 +68,34 @@ async function loadMovies() {
         }
 
         movies.forEach(movie => {
-    const card = document.createElement("div");
-    card.className = "movie-card";
-    card.style.cursor = "pointer";
-    
-    // Toàn bộ card đều có thể click để chuyển đến trang chi tiết phim
-    card.innerHTML = `
-        <img src="${movie.posterUrl}" class="poster" alt="${movie.title}">
-        <h3>${movie.title}</h3>
-    `;
-    
-    // Thêm click handler trực tiếp
-    card.addEventListener("click", function() {
-        console.log("🎬 Clicked on:", movie.title);
-        window.location.href = "Movie/movie.html?id=" + movie.movieId;
-    });
-    
-    console.log("📌 Created card for:", movie.title, "- Link: Movie/movie.html?id=" + movie.movieId);
-    container.appendChild(card);
-});
+            const card = document.createElement("div");
+            card.className = "movie-card";
+            card.style.cursor = "pointer";
+
+            card.innerHTML = `
+                <img src="${movie.posterUrl}" class="poster" alt="${movie.title}">
+                <h3>${movie.title}</h3>
+            `;
+
+            card.addEventListener("click", function () {
+                console.log("🎬 Clicked on:", movie.title);
+                window.location.href = "Movie/movie.html?id=" + movie.movieId;
+            });
+
+            console.log("📌 Created card for:", movie.title, "- Link: Movie/movie.html?id=" + movie.movieId);
+            container.appendChild(card);
+        });
         console.log("✅ All movie cards rendered");
 
     } catch (error) {
         console.error("Lỗi khi tải phim:", error);
         container.innerHTML = '<p style="color:#e50914;text-align:center;padding:40px;">Không thể tải danh sách phim. Vui lòng tải lại trang.</p>';
     }
+}
+
+function clearAuthState() {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
+    sessionStorage.removeItem(POST_AUTH_REDIRECT_KEY);
 }

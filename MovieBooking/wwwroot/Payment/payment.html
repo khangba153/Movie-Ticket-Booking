@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán - FoxCinema</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="./payment.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="payment-card">
+        <div class="page-header">
+            <span class="page-step">BƯỚC THANH TOÁN</span>
+            <h1>THANH TOÁN VÉ</h1>
+            <p class="page-subtitle">Chọn phương thức thanh toán phù hợp để hoàn tất đơn vé của bạn.</p>
+        </div>
+
+        <div id="paymentFlow">
+            <div class="payment-layout">
+                <section class="section-card methods-card fc-animate-in fc-stagger-1">
+                    <div class="section-head">
+                        <span class="section-label">Phương thức</span>
+                        <h2>Chọn cách thanh toán</h2>
+                    </div>
+                    <div id="methodGrid" class="method-grid"></div>
+                </section>
+
+                <section class="section-card summary-card fc-animate-in fc-stagger-2">
+                    <div class="section-head">
+                        <span class="section-label">Tóm tắt</span>
+                        <h2>Thông tin đặt vé</h2>
+                    </div>
+
+                    <div class="summary-list">
+                        <div class="summary-row">
+                            <span class="label">Tên phim</span>
+                            <span id="summaryMovie" class="value">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">Ngày chiếu</span>
+                            <span id="summaryDate" class="value">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">Suất chiếu</span>
+                            <span id="summaryTime" class="value">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">Ghế</span>
+                            <span id="summarySeats" class="value">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">Phương thức</span>
+                            <span id="selectedMethodDisplay" class="value value-muted">Chưa chọn</span>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-row">
+                            <span class="label">Giá vé</span>
+                            <span id="summarySeatPrice" class="value">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">Tạm tính</span>
+                            <span id="summarySubTotal" class="value">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">VAT (8%)</span>
+                            <span id="summaryVat" class="value">-</span>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-row total-row">
+                            <span class="label">Tổng thanh toán</span>
+                            <span id="summaryTotal" class="value">-</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-note">
+                        Vé sẽ được tạo sau khi thanh toán mô phỏng hoàn tất.
+                    </div>
+                </section>
+            </div>
+
+            <p id="paymentMessage" class="fc-msg payment-message"></p>
+
+            <div class="button-group">
+                <button id="backBtn" class="btn btn-secondary" type="button">QUAY LẠI</button>
+                <button id="payNowBtn" class="btn btn-primary" type="button">THANH TOÁN NGAY</button>
+            </div>
+        </div>
+
+        <div id="paymentSuccess" class="payment-success" hidden>
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M8 12.5l2.5 2.5L16 9.5"></path>
+                </svg>
+            </div>
+
+            <h2>THANH TOÁN THÀNH CÔNG!</h2>
+            <p class="success-text">Giao dịch mô phỏng đã được xác nhận và vé của bạn đã sẵn sàng.</p>
+
+            <div class="result-grid">
+                <div class="result-item">
+                    <span class="result-label">Phương thức</span>
+                    <span id="resultMethod" class="result-value">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Mã giao dịch</span>
+                    <span id="resultTransactionCode" class="result-value">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Thời gian thanh toán</span>
+                    <span id="resultPaymentTime" class="result-value">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Mã đặt vé</span>
+                    <span id="resultBookingId" class="result-value">-</span>
+                </div>
+                <div class="result-item result-item-full">
+                    <span class="result-label">Số tiền</span>
+                    <span id="resultAmount" class="result-value result-amount">-</span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="viewTicketBtn" class="btn btn-primary" type="button">XEM VÉ ĐÃ ĐẶT</button>
+                <button id="homeBtn" class="btn btn-secondary" type="button">TRANG CHỦ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./payment.js"></script>
+</body>
+</html>

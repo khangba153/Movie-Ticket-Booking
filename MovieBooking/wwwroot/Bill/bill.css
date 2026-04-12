@@ -212,6 +212,27 @@ h1 {
     pointer-events: none;
 }
 
+.login-required-modal {
+    width: min(460px, 95vw);
+}
+
+.modal-title {
+    font-size: var(--fc-fs-lg);
+    font-weight: var(--fc-fw-bold);
+    color: var(--fc-white);
+    margin-bottom: var(--fc-sp-md);
+}
+
+.login-required-text {
+    color: var(--fc-text-muted);
+    line-height: 1.8;
+    font-size: var(--fc-fs-sm);
+}
+
+.modal-actions {
+    margin-top: var(--fc-sp-xl);
+}
+
 /* Responsive */
 @media (max-width: 480px) {
     .bill-card {

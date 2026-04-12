@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const seatCodes = selectedSeats.map(s => s.seatCode).join(",");
         
         const tempBooking = {
-            userId: parseInt(localStorage.getItem("userId")) || 1,
+            userId: parseInt(localStorage.getItem("userId"), 10) || null,
             showtimeId: showtimeId,
             seatIds: selectedSeats.map(s => s.seatId),
             seatCodes: seatCodes,
